@@ -19,6 +19,7 @@
 #include <malloc.h>
 #include <linux/clk.h>
 #include <linux/err.h>
+#include <linux/clk/clk-conf.h>
 
 static LIST_HEAD(clks);
 
@@ -525,6 +526,7 @@ int of_clk_init(struct device_node *root, const struct of_device_id *matches)
 			if (force || parent_ready(clk_provider->np)) {
 
 				clk_provider->clk_init_cb(clk_provider->np);
+				of_clk_set_defaults(clk_provider->np, true);
 
 				list_del(&clk_provider->node);
 				free(clk_provider);
